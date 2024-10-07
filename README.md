@@ -23,3 +23,9 @@ Make .gitignore
 Bc deploying on file, use fly secrets CLI `fly secrets set DB_USER=xxx DB_PASSWORD=xxx DB_HOST=xxx DB_PORT=xxx DB_NAME=xxx`
 Import `psycopg` package to connect to DB
 Add security rule on AWS
+
+https://pypi.org/project/python-dotenv/
+https://fastapi-users.github.io/fastapi-users/latest/configuration/overview/
+
+Refactor codebase, create new db & sub-products
+

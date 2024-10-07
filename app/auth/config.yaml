@@ -1,0 +1,12 @@
+# EXAMPLE OF config.yaml
+
+jwt_lifetime:
+  days: 0
+  hours: 3
+  seconds: 0
+
+url_config:
+  base_url: "https://preskripsi.ai/"
+
+email:
+  email_sender: "admin@preskripsi.ai"

@@ -4,6 +4,9 @@ from fastapi import Depends
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
+# from typing import Optional
+# from sqlmodel import Field, Relationship
+# from app.project_management.models import Team
 
 from app.db.config import db_client
 
@@ -14,6 +17,8 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     pass
+    # team_id: Optional[int] = Field(default=None, foreign_key="teams_table.id")
+    # team: Optional[Team] = Relationship(back_populates="users")
 
 
 async def create_db_and_tables():

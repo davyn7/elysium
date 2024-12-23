@@ -11,6 +11,9 @@ class Project(SQLModel):
     id: Optional[int] | None = Field(default=None, primary_key=True)
     name: str
     description: str
+    start_date: str
+    end_date: str
+    done: int
 
 class Task(SQLModel):
     id: Optional[int] | None = Field(default=None, primary_key=True)

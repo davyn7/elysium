@@ -3,7 +3,7 @@ from typing import Optional
 from app.db.config import db_client
 from typing import List
 from uuid import UUID
-# from app.auth.db import User
+from app.auth.db import User
 # from datetime import datetime
 
 current_schema = "Project-Management"
@@ -17,6 +17,14 @@ current_schema = "Project-Management"
 #     secret_name: str
 #     age: int | None = None
 
+class UserPM(User, table=True):
+    __tablename__ = "project_user_table"
+    __table_args__ = {"schema": current_schema}
+
+    id: Optional[int] | None = Field(default=None, primary_key=True)
+    team_id: Optional[int] = Field(foreign_key=f"{current_schema}.teams_table.id")
+    team: Optional["Team"] = Relationship(back_populates="users")
+
 
 class Project(SQLModel, table=True):
     __tablename__ = "projects_table"
@@ -28,7 +36,7 @@ class Project(SQLModel, table=True):
     start_date: str
     end_date: str
     done: int
-    # teams: List["Team"] = Relationship(back_populates="project")
+    teams: List["Team"] = Relationship(back_populates="project")
     # tasks: List["Task"] = Relationship(back_populates="project")
 
 
@@ -41,8 +49,9 @@ class Team(SQLModel, table=True):
     name: str
     # user_ids: List[UUID] = Field(default=[], foreign_key="user.id")
     # user: List[User] = Relationship(back_populates="team")  # Link to users
-    # project_id: Optional[int] = Field(default=None, foreign_key="projects_table.id")
-    # project: Optional["Project"] = Relationship(back_populates="teams")
+    project_id: Optional[int] = Field(default=None, foreign_key=f"{current_schema}.projects_table.id")
+    project: Optional["Project"] = Relationship(back_populates="teams")
+    users: List["UserPM"] = Relationship(back_populates="team")
 
 
 # # Task table (each task is related to a project and has multiple PICs)

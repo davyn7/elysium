@@ -4,7 +4,9 @@ from app.personal_finance.schemas import (
     SupplementaryIncomeBase
 )
 from app.personal_finance.db import (
+    get_user_db,
     add_user_db,
+    edit_user_db,
     add_recurring_income_db
 )
 from app.auth.db import User
@@ -25,9 +27,14 @@ class UserFSManager:
                 ret += UNTAXABLE[1]
         return ret
     
+    async def get_user(self):
+        return await get_user_db(self.user)
+    
     async def add_user(self):
-        print("PASSED HERE TOO")
         return await add_user_db(self.userfs, self.user, self.calculate_untaxable())
+    
+    async def edit_user(self):
+        return await edit_user_db(self.userfs, self.user, self.calculate_untaxable())
 
 class RecurringIncomeManager:
     def __init__(self, income: RecurringIncomeBase):

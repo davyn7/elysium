@@ -5,10 +5,10 @@ from uuid import UUID
 from pydantic import BaseModel
 
 class UserFSBase(BaseModel):
-    first_name: str
-    last_name: str
-    marital_status: bool = False
-    kids: int = 0
+    first_name: Optional[str]
+    last_name: Optional[str]
+    marital_status: Optional[bool] = False
+    kids: Optional[int] = 0
 
 class RecurringIncomeBase(BaseModel):
     amount: float

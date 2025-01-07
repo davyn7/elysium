@@ -8,22 +8,26 @@ from app.auth.db import User
 
 current_schema = "Project-Management"
 
-# class Hero(SQLModel, table=True):
-#     __tablename__ = "hero_table"
-#     __table_args__ = {"schema": current_schema}
-    
-#     id: Optional[int] | None = Field(default=None, primary_key=True)
-#     name: str
-#     secret_name: str
-#     age: int | None = None
+# User to Tasks: Many-to-Many relationship
+# User to Teams: Many-to-Many relationship
+# User to Projects: Many-to-Many relationship
 
-# class UserPM(User, table=True):
-#     __tablename__ = "project_user_table"
-#     __table_args__ = {"schema": current_schema}
+class UserPM(SQLModel, table=True):
+    __tablename__ = "userpm_table"
+    __table_args__ = {"schema": current_schema}
 
-#     id: Optional[int] | None = Field(default=None, primary_key=True)
-#     team_id: Optional[int] = Field(foreign_key=f"{current_schema}.teams_table.id")
-#     team: Optional["Team"] = Relationship(back_populates="users")
+    id: Optional[int] | None = Field(default=None, primary_key=True)
+    user_id: Optional[UUID] = Field(default=None)
+    first_name: str
+    last_name: str
+    email: str
+
+    # Update these
+    # role: str # 'admin', 'member'
+    # project_id: Optional[int] = Field(default=None, foreign_key=f"{current_schema}.projects_table.id")
+    # project: Optional["Project"] = Relationship(back_populates="users")
+    # team_id: Optional[int] = Field(default=None, foreign_key=f"{current_schema}.teams_table.id")
+    # team: Optional["Team"] = Relationship(back_populates="users")
 
 # Project table (each project has multiple teams, sprints, and tasks)
 class Project(SQLModel, table=True):
@@ -39,6 +43,7 @@ class Project(SQLModel, table=True):
     teams: List["Team"] = Relationship(back_populates="project")
     sprints: List["Sprint"] = Relationship(back_populates="project")
     tasks: List["Task"] = Relationship(back_populates="project")
+    # users: List["UserPM"] = Relationship(back_populates="project")
 
 # Team table (each team is related to a project and has multiple users)
 class Team(SQLModel, table=True):

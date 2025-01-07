@@ -2,7 +2,7 @@ from fastapi import Depends, APIRouter
 from app.auth.db import User
 from app.auth.user_manager import current_active_user
 # from app.project_management.models import Project, Task, TempTask
-from app.project_management.models import Project, Team, Sprint, Task
+from app.project_management.models import Project, Team, Sprint, Task, UserPM
 from app.db.config import db_client
 from sqlmodel import select
 
@@ -22,15 +22,15 @@ async def add_team(team: Team, _: User = Depends(current_active_user)):
     except Exception as e:
         return e
     
-# @router.post("/add_user")
-# async def add_user(user: UserPM, _: User = Depends(current_active_user)):
-#     try:
-#         async with db_client.get_async_session() as session:
-#             session.add(user)
-#             await session.commit()
-#         return {"message": "User added"}
-#     except Exception as e:
-#         return e
+@router.post("/add_user")
+async def add_user(user: UserPM, _: User = Depends(current_active_user)):
+    try:
+        async with db_client.get_async_session() as session:
+            session.add(user)
+            await session.commit()
+        return {"message": "User added"}
+    except Exception as e:
+        return e
 
 @router.post("/add_project")
 async def add_project(project: Project, _: User = Depends(current_active_user)):

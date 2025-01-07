@@ -1,62 +1,27 @@
 from sqlmodel import Field, SQLModel
-from typing import Optional
+from typing import Optional, List
 from datetime import date
 from uuid import UUID
+from pydantic import BaseModel
 
-# class Hero(SQLModel, table=True):
-#     id: Optional[int] | None = Field(default=None, primary_key=True)
-#     name: str
-#     secret_name: str
-#     age: int | None = None
+class UserFSBase(BaseModel):
+    first_name: str
+    last_name: str
+    marital_status: bool = False
+    kids: int = 0
 
-class Project(SQLModel):
-    id: Optional[int] | None = Field(default=None, primary_key=True)
-    name: str
-    description: str
-
-class CategoryBase(SQLModel):
-    name: str
-    description: Optional[str] = None
-    type: str
-    parent_id: Optional[int] = None
-
-class CategoryCreate(CategoryBase):
-    pass
-
-class CategoryRead(CategoryBase):
-    id: int
-
-class IncomeBase(SQLModel):
-    category_id: int
+class RecurringIncomeBase(BaseModel):
     amount: float
-    date: date
-    description: Optional[str] = None
-    is_recurring: bool = False
-    frequency: Optional[str] = None
-    source: str
-    status: str = 'pending'
+    frequency: str = "monthly" # Can be "annual"
+    is_gross: bool = True
+    start: date
+    end: Optional[date] = None
 
-class IncomeCreate(IncomeBase):
-    pass
-
-class IncomeRead(IncomeBase):
-    id: int
-    user_id: UUID
-
-class ExpenseBase(SQLModel):
-    category_id: int
+class BonusBase(BaseModel):
+    category: str = "bonus" # Can be "thr" or "commission"
+    form: str = "fixed" # Can be "months" or "percentage"
     amount: float
-    date: date
-    description: Optional[str] = None
-    is_recurring: bool = False
-    frequency: Optional[str] = None
-    payment_method: str
-    status: str = 'pending'
-    invoice_url: Optional[str] = None
+    months_paid: List[str]
 
-class ExpenseCreate(ExpenseBase):
+class SupplementaryIncomeBase(BaseModel):
     pass
-
-class ExpenseRead(ExpenseBase):
-    id: int
-    user_id: UUID

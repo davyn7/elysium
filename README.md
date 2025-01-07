@@ -29,3 +29,13 @@ https://fastapi-users.github.io/fastapi-users/latest/configuration/overview/
 
 Refactor codebase, create new db & sub-products
 
+To-dos:
+
+## For PM
+When a project is made, make the person who made the project the project manager.
+Admin table.
+When adding UserPM, check if user exists.
+TaskUserLink.
+
+## For PF
+

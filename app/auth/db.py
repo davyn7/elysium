@@ -17,9 +17,6 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     pass
-    # team_id: Optional[int] = Field(default=None, foreign_key="teams_table.id")
-    # team: Optional[Team] = Relationship(back_populates="users")
-
 
 async def create_db_and_tables():
     async with db_client.async_engine.begin() as conn:

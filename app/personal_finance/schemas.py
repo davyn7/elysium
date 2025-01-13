@@ -11,6 +11,7 @@ class UserFSBase(BaseModel):
     kids: Optional[int] = 0
 
 class RecurringIncomeBase(BaseModel):
+    name: str
     amount: float
     frequency: str = "monthly" # Can be "annual"
     is_gross: bool = True
@@ -23,5 +24,17 @@ class BonusBase(BaseModel):
     amount: float
     months_paid: List[str]
 
+class AccountBase(BaseModel):
+    name: str
+
+class PortfolioBase(BaseModel):
+    name: str
+
+class InvestmentBase(BaseModel):
+    name: str
+
+class ExpenseBase(BaseModel):
+    name: str
+
 class SupplementaryIncomeBase(BaseModel):
-    pass
+    name: str

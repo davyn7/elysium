@@ -1,5 +1,5 @@
 from sqlmodel import Field, SQLModel
-from typing import Optional
+from typing import Optional, List
 
 # class Hero(SQLModel, table=True):
 #     id: Optional[int] | None = Field(default=None, primary_key=True)
@@ -32,4 +32,4 @@ class User(SQLModel):
     phone_number: int
     country_code: int
     password: str
-    projects: list[Project] = []
+    projects: List[Project] = []
